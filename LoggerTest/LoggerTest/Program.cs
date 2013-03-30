@@ -8,16 +8,21 @@ namespace LoggerTest
 {
     class Program
     {
+        static h.mu.Logger.LogFileWriter logger = new h.mu.Logger.LogFileWriter(Properties.Settings1.Default, "log_");
+
         static void Main(string[] args)
         {
-
-            RollingFileWriter writer = new RollingFileWriter(@"..\logdir", "test", "log", 1024, 2);
-            writer.open();
-            for (int i = 0; i < 100; i++)
+            logger.info("BEGIN {0}", "STR");
+//            logger.logLevel = LogLevel.ERROR;
+            for (int i = 0; i < 10; i++)
             {
-                writer.writeLine("0123456789");
+                logger.debug("DEBUG文字列");
+                logger.info("INFO文字列");
+                logger.warn("WARN文字列");
+                logger.error("ERROR文字列");
+                logger.error("ERROR", new Exception("GADG"));
             }
-            writer.close();
+            logger.info("END {0}", "STR");
         }
     }
 }
